@@ -20,6 +20,8 @@ interface CurrencyTableProps {
 }
 
 export function CurrencyTable(props: CurrencyTableProps) {
+  const [isExpanded, setIsExpanded] = React.useState<boolean[]>([]);
+
   return (
     <div className="p-8">
       <div className="min-w-[800px] grid grid-cols-12">
@@ -32,10 +34,11 @@ export function CurrencyTable(props: CurrencyTableProps) {
         {props.data.map((currency, i) => (
           <TableRow
             key={i}
-            name={currency.name}
-            amount={currency.amount}
-            avgPrice={currency.avgPrice}
-            prices={currency.prices}
+            data={currency}
+            isExpanded={isExpanded[i]}
+            setIsExpanded={() =>
+              setIsExpanded(isExpanded.map((x, j) => (j === i ? !x : x)))
+            }
           />
         ))}
       </div>
@@ -43,28 +46,32 @@ export function CurrencyTable(props: CurrencyTableProps) {
   );
 }
 
-export function TableRow(props: CurrencyData) {
-  const [isExpanded, setIsExpanded] = React.useState(false);
+interface TableRowProps {
+  data: CurrencyData;
+  isExpanded: boolean;
+  setIsExpanded: (isExpanded: boolean) => void;
+}
 
+export function TableRow(props: TableRowProps) {
   return (
     <div className="relative col-span-12 grid grid-cols-12">
       <DropdownArrowIcon
         className={cx(
           "absolute -left-[24px] transition-all",
-          isExpanded && "rotate-180"
+          props.isExpanded && "rotate-180"
         )}
         width={24}
         height={24}
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={() => props.setIsExpanded(!props.isExpanded)}
       />
-      <span className="col-span-9 font-medium">{props.name}</span>
-      <span>{props.amount}</span>
-      <span className="font-medium col-span-2">{props.avgPrice}</span>
-      {props.prices.map((price) => (
+      <span className="col-span-9 font-medium">{props.data.name}</span>
+      <span>{props.data.amount}</span>
+      <span className="font-medium col-span-2">{props.data.avgPrice}</span>
+      {props.data.prices.map((price) => (
         <div
           className={cx(
             "col-span-12 grid grid-cols-12 transition-all overflow-hidden",
-            isExpanded ? "max-h-full" : "max-h-0 invisible"
+            props.isExpanded ? "max-h-full" : "max-h-0 invisible"
           )}
         >
           <span className="col-span-9">

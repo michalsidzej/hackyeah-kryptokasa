@@ -1,35 +1,28 @@
 import { createRoot } from "react-dom/client";
-import { CurrencyForm } from "./components/CurrencyForm";
-import { CurrencyData, CurrencyTable } from "./components/CurrencyTable";
+import { CurrencyForm, CurrencyRecord } from "./components/CurrencyForm";
+import { CurrencyTable } from "./components/CurrencyTable";
+import { useState } from "react";
+import { useDownloader } from "./downloader/useDownloader";
 
 function App() {
-  const data: CurrencyData[] = [
-    {
-      name: "Bitcoin (BTC)",
-      amount: 0.0001,
-      avgPrice: 10000,
-      prices: [
-        {
-          provider: "kraken",
-          value: 10000,
-          amount: 0.0001,
-        },
-        {
-          provider: "zonda",
-          value: 10000,
-          amount: 0.0001,
-        },
-      ],
-    },
-  ];
+  const [selectedCurrencies, setSelectedCurrencies] = useState<
+    CurrencyRecord[]
+  >([]);
+
+  const data = useDownloader(selectedCurrencies);
+
   return (
-    <div className="p-4 flex ">
-      <CurrencyForm />
+    <div className="p-4 flex">
+      <CurrencyForm
+        onSubmit={(currencyRecord) =>
+          setSelectedCurrencies([...selectedCurrencies, currencyRecord])
+        }
+      />
       <CurrencyTable data={data} />
     </div>
   );
 }
 
 const container = document.getElementById("root");
-const root = createRoot(container); // createRoot(container!) if you use TypeScript
+const root = createRoot(container);
 root.render(<App />);

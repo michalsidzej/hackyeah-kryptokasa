@@ -7,8 +7,13 @@ const currencies = currenciesConfig.map(
   (currency) => `${currency.name} (${currency.symbol})`
 );
 
-export function CurrencySelect(props: { className?: string }) {
-  const [selectedCurrency, setSelectedCurrency] = useState();
+interface CurrencySelectProps {
+  className?: string;
+  onChange: (value: string) => void;
+}
+
+export function CurrencySelect(props: CurrencySelectProps) {
+  const [selectedCurrency, setSelectedCurrency] = useState<string>();
   const [query, setQuery] = useState("");
 
   const filteredCurrencies =
@@ -18,10 +23,16 @@ export function CurrencySelect(props: { className?: string }) {
           return currency.toLowerCase().includes(query.toLowerCase());
         });
 
+  function onChange(value: string) {
+    setSelectedCurrency(value);
+    const symbol = /\(([^)]+)\)/.exec(value)?.[1];
+    props.onChange(symbol);
+  }
+
   return (
     <div className={props.className}>
       <Label text="Nazwa lub ID aktywu" />
-      <Combobox value={selectedCurrency} onChange={setSelectedCurrency}>
+      <Combobox value={selectedCurrency} onChange={onChange}>
         <div className="relative">
           <Combobox.Input
             onChange={(event) => setQuery(event.target.value)}
