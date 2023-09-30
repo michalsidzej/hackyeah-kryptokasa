@@ -28,3 +28,10 @@
 
 import "./index.css";
 import "./App.tsx";
+import { PreloadAPI } from "./preload-api";
+
+declare global {
+  interface Window {
+    api: PreloadAPI;
+  }
+}

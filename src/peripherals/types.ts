@@ -1,5 +1,5 @@
 export interface PriceRecord {
-  time: string;
+  time: Date;
   price: number;
   provider: string;
 }

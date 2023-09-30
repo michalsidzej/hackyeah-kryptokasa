@@ -1,5 +1,4 @@
 import { InputWithLabel } from "./components/InputWithLabel";
-import { usePriceDownloader } from "./downloader/usePriceDownloader";
 import { createRoot } from "react-dom/client";
 import { useCurrencies } from "./useCurrencies";
 import { currenciesConfig } from "./config";

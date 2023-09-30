@@ -17,14 +17,17 @@ export class ZondaClient {
     baseCurrency: string,
     quoteCurrency: string
   ): Promise<PriceRecord> {
-    const response = await fetch(
+    const response = await window.api.fetch(
       `${this.url}/rest/trading/ticker/${baseCurrency}-${quoteCurrency}`
     );
-    const result = await response.json();
-    const data = ZondaApiSchema.parse(result);
+    const data = ZondaApiSchema.parse(response);
 
     const avgPrice =
       (Number(data.ticker.highestBid) + Number(data.ticker.lowestAsk)) / 2;
-    return { price: avgPrice, time: data.ticker.time, provider: "zonda" };
+    return {
+      price: avgPrice,
+      time: new Date(data.ticker.time),
+      provider: "zonda",
+    };
   }
 }
