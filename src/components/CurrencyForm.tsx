@@ -30,7 +30,7 @@ export function CurrencyForm(props: CurrencyFormProps) {
     });
   }
   return (
-    <section className="min-w-[500px]">
+    <section className="w-[500px]">
       <h2 className="mb-3 text-xxl">Wyszukaj kryptowalutę</h2>
       <p className="mb-10">
         System automatycznie znajdzie dzisiejszą cenę aktywów. Możesz też

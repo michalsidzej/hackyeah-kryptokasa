@@ -40,43 +40,48 @@ export function CaseDataPage() {
   };
 
   return (
-    <section className="min-w-[500px]" onSubmit={handleSubmit}>
-      <h2 className="mb-3 text-xxl">Wprowadź dane sprawy</h2>
-      <form>
-        <div className="mb-4">
-          <Label text="Nazwa organu egzekucyjnego" />
-          <Input
-            name="organName"
-            value={formState.organName}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="mb-4">
-          <Label text="Numer sprawy" />
-          <Input
-            name="caseId"
-            value={formState.caseId}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="mb-4">
-          <Label text="Imię i nazwisko właściciela kryptoaktywa" />
-          <Input
-            name="nameAndSurname"
-            value={formState.nameAndSurname}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="mb-4">
-          <Label text="PESEL właściciela kryptoaktywa" />
-          <Input
-            name="pesel"
-            value={formState.pesel}
-            onChange={handleInputChange}
-          />
-        </div>
-        <Button text="Dalej" blue type="submit" />
-      </form>
-    </section>
+    <>
+      <section className="w-[500px]" onSubmit={handleSubmit}>
+        <h2 className="mb-3 text-xxl">Wprowadź dane sprawy</h2>
+        <form>
+          <div className="mb-4">
+            <Label text="Nazwa organu egzekucyjnego" />
+            <Input
+              name="organName"
+              value={formState.organName}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mb-4">
+            <Label text="Numer sprawy" />
+            <Input
+              name="caseId"
+              value={formState.caseId}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mb-4">
+            <Label text="Imię i nazwisko właściciela kryptoaktywa" />
+            <Input
+              name="nameAndSurname"
+              value={formState.nameAndSurname}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mb-4">
+            <Label text="PESEL właściciela kryptoaktywa" />
+            <Input
+              name="pesel"
+              value={formState.pesel}
+              onChange={handleInputChange}
+            />
+          </div>
+          <Button text="Dalej" blue type="submit" />
+        </form>
+      </section>
+      <div className="max-w-[800px] pl-10">
+        <img src="assets/landing.svg" className="max-h-[600px]" />
+      </div>
+    </>
   );
 }
