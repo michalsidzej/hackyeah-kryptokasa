@@ -40,7 +40,7 @@ export function CaseDataPage() {
   };
 
   return (
-    <>
+    <div className="flex">
       <section className="w-[500px]" onSubmit={handleSubmit}>
         <h2 className="mb-3 text-xxl">Wprowadź dane sprawy</h2>
         <form>
@@ -82,6 +82,6 @@ export function CaseDataPage() {
       <div className="max-w-[800px] pl-10">
         <img src="assets/landing.svg" className="max-h-[600px]" />
       </div>
-    </>
+    </div>
   );
 }

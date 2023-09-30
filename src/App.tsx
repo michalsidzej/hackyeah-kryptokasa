@@ -14,7 +14,7 @@ function App() {
     <CaseDataContext.Provider value={{ caseData, setCaseData }}>
       <HashRouter>
         <Header />
-        <div className="px-10 py-8 flex">
+        <div className="px-10 py-8">
           <Routes>
             <Route path="/" Component={CaseDataPage} />
             <Route path="/currency-selector" Component={CurrencySelector} />

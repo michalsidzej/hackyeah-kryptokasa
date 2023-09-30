@@ -11,13 +11,13 @@ export function CurrencySelector() {
   const data = useDownloader(selectedCurrencies);
 
   return (
-    <>
+    <div className="flex">
       <CurrencyForm
         onSubmit={(currencyRecord) =>
           setSelectedCurrencies([...selectedCurrencies, currencyRecord])
         }
       />
       <CurrencyTable data={data} />
-    </>
+    </div>
   );
 }
