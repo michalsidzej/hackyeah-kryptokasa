@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PriceRecord } from "./types";
+import { PriceProvider, PriceRecord } from "./types";
 
 const oneKeySchema = z.custom(
   (value) => {
@@ -18,13 +18,12 @@ const oneKeySchema = z.custom(
   { message: "Object must have a single key that is a non-empty string" }
 );
 
-const KrakenApiSchema = (base: string, quote: string) =>
-  z.object({
-    error: z.tuple([]),
-    result: oneKeySchema,
-  });
+const KrakenApiSchema = z.object({
+  error: z.tuple([]),
+  result: oneKeySchema,
+});
 
-export class KrakenClient {
+export class KrakenClient implements PriceProvider {
   constructor(private readonly url: string) {}
 
   async getPrice(
@@ -34,7 +33,7 @@ export class KrakenClient {
     const response = await window.api.fetch(
       `${this.url}/0/public/Ticker/?pair=${baseCurrency}${quoteCurrency}`
     );
-    const data = KrakenApiSchema(baseCurrency, quoteCurrency).parse(response);
+    const data = KrakenApiSchema.parse(response);
     const time = new Date();
     const result = Object.values(data.result)[0];
     const price = Number(result.a[0]);

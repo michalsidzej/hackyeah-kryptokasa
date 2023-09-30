@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PriceRecord } from "./types";
+import { PriceProvider, PriceRecord } from "./types";
 
 const ZondaApiSchema = z.object({
   status: z.literal("Ok"),
@@ -10,7 +10,7 @@ const ZondaApiSchema = z.object({
   }),
 });
 
-export class ZondaClient {
+export class ZondaClient implements PriceProvider {
   constructor(private readonly url: string) {}
 
   async getPrice(
