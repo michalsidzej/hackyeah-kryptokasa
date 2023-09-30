@@ -36,7 +36,7 @@ export function CurrencySelect(props: CurrencySelectProps) {
         <div className="relative">
           <Combobox.Input
             onChange={(event) => setQuery(event.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 w-full"
+            className="px-3 py-2 border border-gray-100-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 w-full"
           />
           <Combobox.Options className="absolute bg-white w-full ">
             {filteredCurrencies.map((currency) => (

@@ -1,5 +1,5 @@
 module.exports = {
-  content: ["./src/**/*.{html,tsx,ts}"],
+  content: ["./src/**/*.{html,tsx,ts}", "./index.html"],
   theme: {
     fontFamily: {
       sans: ["Montserrat", "sans-serif"],
@@ -8,7 +8,7 @@ module.exports = {
       black: "#000000",
       white: "#ffffff",
       blue: "#0052A5",
-      gray: "#F1F1F1",
+      gray: { 100: "#F1F1F1", 500: "#979797" },
     },
     fontSize: {
       xs: ["14px", "14px"],

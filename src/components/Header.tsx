@@ -8,7 +8,7 @@ export function Header() {
           <img src="/assets/MF_logo.png" alt="logo" />
         </Link>
       </nav>
-      <hr className="border-gray" />
+      <hr className="border-gray-100" />
     </header>
   );
 }

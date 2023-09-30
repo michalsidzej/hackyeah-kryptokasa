@@ -27,25 +27,23 @@ export function CurrencyTable(props: CurrencyTableProps) {
   }, [props.data]);
 
   return (
-    <div className="p-8">
-      <div className="min-w-[800px] grid grid-cols-12">
-        <span className="text-left col-span-9">Nazwa kryptowaluty</span>
-        <span className="col-span-1">ilość</span>
-        <span className="col-span-2">średnia wartość</span>
+    <div className="min-w-[800px] grid grid-cols-12">
+      <span className="text-left col-span-9">Nazwa kryptowaluty</span>
+      <span className="col-span-1">ilość</span>
+      <span className="col-span-2">średnia wartość</span>
 
-        <hr className="col-span-12 border-gray" />
+      <hr className="col-span-12 border-gray-100" />
 
-        {props.data.map((currency, i) => (
-          <TableRow
-            key={i}
-            data={currency}
-            isExpanded={isExpanded[i]}
-            setIsExpanded={() =>
-              setIsExpanded(isExpanded.map((x, j) => (j === i ? !x : x)))
-            }
-          />
-        ))}
-      </div>
+      {props.data.map((currency, i) => (
+        <TableRow
+          key={i}
+          data={currency}
+          isExpanded={isExpanded[i]}
+          setIsExpanded={() =>
+            setIsExpanded(isExpanded.map((x, j) => (j === i ? !x : x)))
+          }
+        />
+      ))}
     </div>
   );
 }

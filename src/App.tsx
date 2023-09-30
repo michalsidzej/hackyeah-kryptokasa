@@ -4,6 +4,7 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 import { CurrencySelector } from "./pages/CurrencySelecing";
 import { createContext, useState } from "react";
 import { CaseData, CaseDataPage } from "./pages/CaseDataPage";
+import { Footer } from "./components/Footer";
 
 export const CaseDataContext = createContext(null);
 
@@ -14,12 +15,13 @@ function App() {
     <CaseDataContext.Provider value={{ caseData, setCaseData }}>
       <HashRouter>
         <Header />
-        <div className="px-10 py-8">
+        <main className="px-10 py-8 grow">
           <Routes>
             <Route path="/" Component={CaseDataPage} />
             <Route path="/currency-selector" Component={CurrencySelector} />
           </Routes>
-        </div>
+        </main>
+        <Footer />
       </HashRouter>
     </CaseDataContext.Provider>
   );
