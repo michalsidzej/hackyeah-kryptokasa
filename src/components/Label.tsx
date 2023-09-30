@@ -3,9 +3,5 @@ interface LabelProps {
 }
 
 export function Label(props: LabelProps) {
-  return (
-    <label className="block font-bold leading-tight text-xs">
-      {props.text}
-    </label>
-  );
+  return <label className="block font-bold mb-2 text-xs">{props.text}</label>;
 }

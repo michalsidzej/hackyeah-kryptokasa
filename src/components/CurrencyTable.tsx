@@ -70,19 +70,22 @@ export function TableRow(props: TableRowProps) {
       />
       <span className="col-span-9 font-medium">{props.data.name}</span>
       <span>{props.data.amount}</span>
-      <span className="font-medium col-span-2">{props.data.avgPrice}</span>
-      {props.data.prices.map((price) => (
+      <span className="font-medium col-span-2">
+        {(props.data.avgPrice * props.data.amount).toFixed(2)}
+      </span>
+      {props.data.prices.map((price, i) => (
         <div
           className={cx(
             "col-span-12 grid grid-cols-12 transition-all overflow-hidden",
             props.isExpanded ? "max-h-full" : "max-h-0 invisible"
           )}
+          key={i}
         >
           <span className="col-span-9">
             {capitalizeFirstLetter(price.provider)}
           </span>
           <span>{price.amount}</span>
-          <span className="col-span-2">{price.amount}</span>
+          <span className="col-span-2">{price.value.toFixed(2)}</span>
         </div>
       ))}
     </div>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "./Button";
 import { CurrencyAmountInput } from "./CurrencyAmountInput";
 import { CurrencySelect } from "./CurrencySelect";
+import { useNavigate } from "react-router-dom";
 
 export interface CurrencyRecord {
   currencySymbol: string;
@@ -13,6 +14,7 @@ interface CurrencyFormProps {
 }
 
 export function CurrencyForm(props: CurrencyFormProps) {
+  const navigate = useNavigate();
   const [currency, setCurrency] = useState<string>();
   const [amount, setAmount] = useState<number>();
 
@@ -42,7 +44,7 @@ export function CurrencyForm(props: CurrencyFormProps) {
           value={amount}
         />
         <div className="flex gap-3">
-          <Button text="Usuń" />
+          <Button text="Wróć" onClick={() => navigate("/")} />
           <Button text="Dodaj" type="submit" blue />
         </div>
       </form>
