@@ -67,11 +67,17 @@ export function TableRow(props: CurrencyData) {
             isExpanded ? "max-h-full" : "max-h-0 invisible"
           )}
         >
-          <span className="col-span-9">{price.provider}</span>
+          <span className="col-span-9">
+            {capitalizeFirstLetter(price.provider)}
+          </span>
           <span>{price.amount}</span>
           <span className="col-span-2">{price.amount}</span>
         </div>
       ))}
     </div>
   );
+}
+
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
