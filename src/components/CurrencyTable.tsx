@@ -2,10 +2,12 @@ import React, { useEffect } from "react";
 import { DropdownArrowIcon } from "../icons/DropdownArrowIcon";
 import cx from "classnames";
 
-export interface CurrencyData {
+export interface AssetData {
   name: string;
+  symbol: string;
   amount: number;
   avgPrice: number;
+  value: number;
   prices: ValueRecord[];
 }
 
@@ -15,11 +17,11 @@ interface ValueRecord {
   amount: number;
 }
 
-interface CurrencyTableProps {
-  data: CurrencyData[];
+interface AssetTableProps {
+  data: AssetData[];
 }
 
-export function CurrencyTable(props: CurrencyTableProps) {
+export function AssetTable(props: AssetTableProps) {
   const [isExpanded, setIsExpanded] = React.useState<boolean[]>([]);
 
   useEffect(() => {
@@ -49,7 +51,7 @@ export function CurrencyTable(props: CurrencyTableProps) {
 }
 
 interface TableRowProps {
-  data: CurrencyData;
+  data: AssetData;
   isExpanded: boolean;
   setIsExpanded: (isExpanded: boolean) => void;
 }
@@ -66,10 +68,12 @@ export function TableRow(props: TableRowProps) {
         height={24}
         onClick={() => props.setIsExpanded(!props.isExpanded)}
       />
-      <span className="col-span-9 font-medium">{props.data.name}</span>
+      <span className="col-span-9 font-medium">
+        {props.data.name} ({props.data.symbol})
+      </span>
       <span>{props.data.amount}</span>
       <span className="font-medium col-span-2">
-        {(props.data.avgPrice * props.data.amount).toFixed(2)}
+        {props.data.value.toFixed(2)}
       </span>
       {props.data.prices.map((price, i) => (
         <div

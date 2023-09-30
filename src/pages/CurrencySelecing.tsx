@@ -1,26 +1,35 @@
-import { useState } from "react";
-import { useDownloader } from "../downloader/useDownloader";
+import { useContext, useEffect, useState } from "react";
 import { CurrencyForm, CurrencyRecord } from "../components/CurrencyForm";
-import { CurrencyTable } from "../components/CurrencyTable";
+import { AssetTable } from "../components/CurrencyTable";
 import { Button } from "../components/Button";
+import { AssetDataContext } from "../App";
+import { getAssetData } from "../downloader/getAssetData";
 
 export function CurrencySelector() {
-  const [selectedCurrencies, setSelectedCurrencies] = useState<
-    CurrencyRecord[]
-  >([]);
+  const [selectedCurrency, setSelectedCurrency] =
+    useState<CurrencyRecord>(null);
 
-  const data = useDownloader(selectedCurrencies);
+  const { assetData, setAssetData } = useContext(AssetDataContext);
+
+  useEffect(() => {
+    async function fetchData(record: CurrencyRecord) {
+      const data = await getAssetData(record.currencySymbol, record.amount);
+      setAssetData([...(assetData ?? []), data]);
+    }
+
+    if (selectedCurrency) {
+      fetchData(selectedCurrency);
+    }
+  }, [selectedCurrency]);
 
   return (
     <div className="flex h-full">
       <CurrencyForm
-        onSubmit={(currencyRecord) =>
-          setSelectedCurrencies([...selectedCurrencies, currencyRecord])
-        }
+        onSubmit={(currencyRecord) => setSelectedCurrency(currencyRecord)}
       />
       <div className="px-8 flex flex-col">
         <div className="grow">
-          <CurrencyTable data={data} />
+          <AssetTable data={assetData ?? []} />
         </div>
 
         <hr className="border-gray-100 mb-4" />
