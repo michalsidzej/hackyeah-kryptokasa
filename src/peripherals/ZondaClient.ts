@@ -1,9 +1,5 @@
 import { z } from "zod";
-
-interface PriceRecord {
-  time: string;
-  price: number;
-}
+import { PriceRecord } from "./types";
 
 const ZondaApiSchema = z.object({
   status: z.literal("Ok"),
@@ -29,6 +25,6 @@ export class ZondaClient {
 
     const avgPrice =
       (Number(data.ticker.highestBid) + Number(data.ticker.lowestAsk)) / 2;
-    return { price: avgPrice, time: data.ticker.time };
+    return { price: avgPrice, time: data.ticker.time, provider: "zonda" };
   }
 }

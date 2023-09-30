@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
-import { Prices, priceDownloader } from "./PriceDownloader";
+import { priceDownloader } from "./PriceDownloader";
+import { PriceRecord } from "../peripherals/types";
 
-export function useDownloader() {
-  const baseCurrency = "BTC";
+export function usePriceDownloader(baseCurrency: string) {
   const quoteCurrency = "USD";
-  const [prices, setPrices] = useState<Prices | null>();
+  const [prices, setPrices] = useState<PriceRecord[]>([]);
 
   async function fetchPrices(baseCurrency: string, quoteCurrency: string) {
     const price = await priceDownloader.getPrices(baseCurrency, quoteCurrency);
-    setPrices((prev: Prices | null) => {
-      if (prev === null) return price;
-      return { ...prev, ...price };
-    });
+    setPrices([...prices, ...price]);
   }
 
   useEffect(() => {

@@ -1,8 +1,5 @@
+import { PriceRecord } from "../peripherals/types";
 import { ZondaClient } from "../peripherals/ZondaClient";
-
-export interface Prices {
-  zonda: number;
-}
 
 class PriceDownloader {
   constructor(private readonly ZondaClient: ZondaClient) {}
@@ -10,11 +7,9 @@ class PriceDownloader {
   async getPrices(
     baseCurrency: string,
     quoteCurrency: string
-  ): Promise<Prices> {
+  ): Promise<PriceRecord[]> {
     const price = await this.ZondaClient.getPrice(baseCurrency, quoteCurrency);
-    return {
-      zonda: price,
-    };
+    return [price];
   }
 }
 
