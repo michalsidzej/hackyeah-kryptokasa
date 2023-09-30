@@ -16,7 +16,7 @@ export function CaseDataPage() {
   const navigate = useNavigate();
   const dataContext = useContext(CaseDataContext);
   const [formState, setFormState] = useState<CaseData>(
-    dataContext.caseData || {
+    dataContext.caseData ?? {
       organName: "",
       caseId: "",
       nameAndSurname: "",
@@ -35,6 +35,7 @@ export function CaseDataPage() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dataContext.setCaseData(formState);
+    console.log(formState);
     navigate("/currency-selector");
   };
 
