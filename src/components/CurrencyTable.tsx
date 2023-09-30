@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { DropdownArrowIcon } from "../icons/DropdownArrowIcon";
 import cx from "classnames";
 
@@ -21,6 +21,10 @@ interface CurrencyTableProps {
 
 export function CurrencyTable(props: CurrencyTableProps) {
   const [isExpanded, setIsExpanded] = React.useState<boolean[]>([]);
+
+  useEffect(() => {
+    setIsExpanded(props.data.map(() => false));
+  }, [props.data]);
 
   return (
     <div className="p-8">
