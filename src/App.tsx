@@ -1,10 +1,21 @@
 import * as ReactDOM from "react-dom";
+import { InputWithLabel } from "./components/InputWithLabel";
+
+function App() {
+  return (
+    <>
+      <InputWithLabel
+        id="coins"
+        label="Kryptowaluty"
+        type="text"
+        placeholder="Wpisz kryptowelutę"
+      />
+    </>
+  );
+}
 
 function render() {
-  ReactDOM.render(
-    <h2 className="bg-black">Hello from React!</h2>,
-    document.body
-  );
+  ReactDOM.render(App(), document.body);
 }
 
 render();
