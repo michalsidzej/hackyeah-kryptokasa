@@ -8,7 +8,9 @@ export function Header() {
         <Link to="/">
           <MfLogoIcon className="h-32 w-64" />
         </Link>
-        <span className="text-md font-bold">Instrukcja obsługi</span>
+        <Link to="/instructions" className="text-md font-bold">
+          Instrukcja obsługi
+        </Link>
       </nav>
       <hr className="border-gray-100" />
     </header>

@@ -7,6 +7,7 @@ import { CaseData, CaseDataPage } from "./pages/CaseDataPage";
 import { Footer } from "./components/Footer";
 import { AssetData } from "./components/CurrencyTable";
 import { NbpPrice } from "./peripherals/NbpClient";
+import { InstructionPage } from "./pages/InstructionPage";
 
 interface CaseDataContext {
   caseData: CaseData | null;
@@ -42,6 +43,7 @@ function App() {
               <Routes>
                 <Route path="/" Component={CaseDataPage} />
                 <Route path="/currency-selector" Component={CurrencySelector} />
+                <Route path="/instructions" Component={InstructionPage} />
               </Routes>
             </main>
             <Footer />
