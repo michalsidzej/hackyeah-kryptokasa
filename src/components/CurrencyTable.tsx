@@ -11,7 +11,7 @@ export interface AssetData {
   prices: ValueRecord[];
 }
 
-interface ValueRecord {
+export interface ValueRecord {
   provider: string;
   value: number;
   amount: number;

@@ -26,6 +26,9 @@ export function CurrencySelector() {
     <div className="flex h-full">
       <CurrencyForm
         onSubmit={(currencyRecord) => setSelectedCurrency(currencyRecord)}
+        onManualSubmit={(newAsset) =>
+          setAssetData([...(assetData ?? []), newAsset])
+        }
       />
       <div className="px-8 flex flex-col">
         <div className="grow">

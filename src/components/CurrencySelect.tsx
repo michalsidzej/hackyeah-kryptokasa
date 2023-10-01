@@ -44,7 +44,7 @@ export function CurrencySelect(props: CurrencySelectProps) {
               <Combobox.Option
                 key={currency}
                 value={currency}
-                className="hover:bg-black hover:text-white"
+                className="ui-active:bg-black ui-active:text-white"
               >
                 {currency}
               </Combobox.Option>

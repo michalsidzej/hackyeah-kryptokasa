@@ -11,6 +11,7 @@ module.exports = {
       gray: { 100: "#F1F1F1", 500: "#979797" },
     },
     fontSize: {
+      xxs: ["10px", "10px"],
       xs: ["14px", "14px"],
       sm: ["15px", "15px"],
       md: ["16px", "16px"],
@@ -19,5 +20,6 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [],
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  plugins: [require("@headlessui/tailwindcss")({ prefix: "ui" })],
 };
