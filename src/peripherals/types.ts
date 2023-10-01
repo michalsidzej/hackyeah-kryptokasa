@@ -1,9 +1,9 @@
-export interface PriceRecord {
-  time: Date;
+export interface ValueRecord {
+  name: string;
+  url: string;
   price: number;
-  provider: string;
 }
 
 export interface PriceProvider {
-  getPrice(baseCurrency: string, quoteCurrency: string): Promise<PriceRecord>;
+  getPrice(baseCurrency: string, quoteCurrency: string): Promise<ValueRecord>;
 }

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PriceProvider, PriceRecord } from "./types";
+import { PriceProvider, ValueRecord } from "./types";
 
 const ZondaApiSchema = z.object({
   status: z.literal("Ok"),
@@ -16,7 +16,7 @@ export class ZondaClient implements PriceProvider {
   async getPrice(
     baseCurrency: string,
     quoteCurrency: string
-  ): Promise<PriceRecord> {
+  ): Promise<ValueRecord> {
     const response = await window.api.fetch(
       `${this.url}/rest/trading/ticker/${baseCurrency}-${quoteCurrency}`
     );
@@ -26,8 +26,8 @@ export class ZondaClient implements PriceProvider {
       (Number(data.ticker.highestBid) + Number(data.ticker.lowestAsk)) / 2;
     return {
       price: avgPrice,
-      time: new Date(data.ticker.time),
-      provider: "zonda",
+      name: "zonda",
+      url: "https://www.zonda.pl/",
     };
   }
 }

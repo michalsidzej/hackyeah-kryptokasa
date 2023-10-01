@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PriceProvider, PriceRecord } from "./types";
+import { PriceProvider, ValueRecord } from "./types";
 
 const oneKeySchema = z.custom(
   (value) => {
@@ -29,15 +29,14 @@ export class KrakenClient implements PriceProvider {
   async getPrice(
     baseCurrency: string,
     quoteCurrency: string
-  ): Promise<PriceRecord> {
+  ): Promise<ValueRecord> {
     const response = await window.api.fetch(
       `${this.url}/0/public/Ticker/?pair=${baseCurrency}${quoteCurrency}`
     );
     const data = KrakenApiSchema.parse(response);
-    const time = new Date();
     const result = Object.values(data.result)[0];
     const price = Number(result.a[0]);
 
-    return { price, time, provider: "kraken" };
+    return { price, name: "kraken", url: "https://www.kraken.com/" };
   }
 }

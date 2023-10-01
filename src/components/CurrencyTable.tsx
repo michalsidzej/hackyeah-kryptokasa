@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { DropdownArrowIcon } from "../icons/DropdownArrowIcon";
 import cx from "classnames";
+import { ValueRecord } from "../peripherals/types";
 
 export interface AssetData {
   name: string;
@@ -9,12 +10,6 @@ export interface AssetData {
   avgPrice: number;
   value: number;
   prices: ValueRecord[];
-}
-
-export interface ValueRecord {
-  provider: string;
-  value: number;
-  amount: number;
 }
 
 interface AssetTableProps {
@@ -84,10 +79,10 @@ export function TableRow(props: TableRowProps) {
           key={i}
         >
           <span className="col-span-9">
-            {capitalizeFirstLetter(price.provider)}
+            {capitalizeFirstLetter(price.name)}
           </span>
-          <span>{price.amount}</span>
-          <span className="col-span-2">{price.value.toFixed(2)}</span>
+          <span>{price.url}</span>
+          <span className="col-span-2">{price.price.toFixed(2)}</span>
         </div>
       ))}
     </div>

@@ -25,10 +25,9 @@ export async function getAssetData(
     avgPrice,
     value: avgPrice * amount,
     prices: prices.map((price) => ({
-      provider: price.provider,
+      name: price.name,
+      url: price.url,
       price: price.price,
-      value: price.price * amount,
-      amount,
     })),
   };
 }

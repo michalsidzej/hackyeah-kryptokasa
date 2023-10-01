@@ -1,5 +1,5 @@
 import { KrakenClient } from "../peripherals/KrakenClient";
-import { PriceProvider, PriceRecord } from "../peripherals/types";
+import { PriceProvider, ValueRecord } from "../peripherals/types";
 import { ZondaClient } from "../peripherals/ZondaClient";
 
 class PriceDownloader {
@@ -8,7 +8,7 @@ class PriceDownloader {
   async getPrices(
     baseCurrency: string,
     quoteCurrency: string
-  ): Promise<PriceRecord[]> {
+  ): Promise<ValueRecord[]> {
     return await Promise.all(
       this.priceProviders.map((provider) =>
         provider.getPrice(baseCurrency, quoteCurrency)

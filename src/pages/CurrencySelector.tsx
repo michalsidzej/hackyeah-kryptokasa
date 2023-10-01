@@ -1,16 +1,22 @@
 import { useContext, useEffect, useState } from "react";
 import { CurrencyForm, CurrencyRecord } from "../components/CurrencyForm";
-import { AssetTable } from "../components/CurrencyTable";
+import { AssetData, AssetTable } from "../components/CurrencyTable";
 import { Button } from "../components/Button";
-import { AssetDataContext, UsdPriceContext } from "../App";
+import { AssetDataContext, CaseDataContext, UsdPriceContext } from "../App";
 import { getAssetData } from "../downloader/getAssetData";
 import { nbpClient } from "../peripherals/NbpClient";
+import { generatePDFReport } from "../report";
+import { CaseData } from "./CaseDataPage";
 
 export function CurrencySelector() {
   const [selectedCurrency, setSelectedCurrency] =
     useState<CurrencyRecord>(null);
   const { usdPrice, setUsdPrice } = useContext(UsdPriceContext);
-  const { assetData, setAssetData } = useContext(AssetDataContext);
+  const { assetData, setAssetData } = useContext<{
+    assetData: AssetData[];
+    setAssetData: any;
+  }>(AssetDataContext);
+  const { caseData } = useContext<{ caseData: CaseData }>(CaseDataContext);
 
   useEffect(() => {
     async function fetchUSDPrice() {
@@ -53,7 +59,7 @@ export function CurrencySelector() {
           <Button
             text="Generuj&nbsp;raport"
             blue
-            onClick={() => alert("TODO")}
+            onClick={() => generatePDFReport(caseData, assetData, usdPrice)}
           />
         </div>
       </div>

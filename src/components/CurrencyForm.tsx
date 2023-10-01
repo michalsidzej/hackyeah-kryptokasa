@@ -155,11 +155,9 @@ function ManualAssetForm(props: ManualAssetFormProps) {
       value: avgPrice * formState.amount,
       amount: formState.amount,
       prices: formState.prices.map((price) => ({
-        provider: price.providerName,
+        name: price.providerName,
         price: price.price,
-        amount: formState.amount,
-        value: price.price * formState.amount,
-        providerUrl: price.providerUrl,
+        url: price.providerUrl,
       })),
     };
     props.onSubmit(assetData);
