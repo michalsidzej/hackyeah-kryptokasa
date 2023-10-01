@@ -6,15 +6,31 @@ import { createContext, useState } from "react";
 import { CaseData, CaseDataPage } from "./pages/CaseDataPage";
 import { Footer } from "./components/Footer";
 import { AssetData } from "./components/CurrencyTable";
+import { NbpPrice } from "./peripherals/NbpClient";
 
-export const CaseDataContext = createContext(null);
-export const AssetDataContext = createContext(null);
-export const UsdPriceContext = createContext(null);
+interface CaseDataContext {
+  caseData: CaseData | null;
+  setCaseData: (data: CaseData) => void;
+}
+
+interface AssetDataContext {
+  assetData: AssetData[] | null;
+  setAssetData: (data: AssetData[]) => void;
+}
+
+interface UsdPriceContext {
+  usdPrice: NbpPrice | null;
+  setUsdPrice: (price: NbpPrice) => void;
+}
+
+export const CaseDataContext = createContext<CaseDataContext>(null);
+export const AssetDataContext = createContext<AssetDataContext>(null);
+export const UsdPriceContext = createContext<UsdPriceContext>(null);
 
 function App() {
   const [caseData, setCaseData] = useState<CaseData | null>(null);
   const [assetData, setAssetData] = useState<AssetData[] | null>(null);
-  const [usdPrice, setUsdPrice] = useState<number | null>(null);
+  const [usdPrice, setUsdPrice] = useState<NbpPrice | null>(null);
 
   return (
     <CaseDataContext.Provider value={{ caseData, setCaseData }}>

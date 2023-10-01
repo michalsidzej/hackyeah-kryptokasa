@@ -139,12 +139,11 @@ function ManualAssetForm(props: ManualAssetFormProps) {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log();
     const symbol = /\(([^)]+)\)/.exec(formState.nameAndSymbol)?.[1];
     const name = /^(.*?)\s*(?=\()/.exec(formState.nameAndSymbol)?.[1];
 
     const avgPrice = formState.prices.reduce(
-      (acc, curr) => acc + curr.price,
+      (acc, curr) => acc + Number(curr.price),
       0
     );
 
@@ -153,13 +152,16 @@ function ManualAssetForm(props: ManualAssetFormProps) {
       symbol: symbol,
       avgPrice,
       value: avgPrice * formState.amount,
-      amount: formState.amount,
-      prices: formState.prices.map((price) => ({
-        name: price.providerName,
-        price: price.price,
-        url: price.providerUrl,
-      })),
+      amount: Number(formState.amount),
+      prices: formState.prices
+        .filter((price) => price.price !== 0)
+        .map((price) => ({
+          name: price.providerName,
+          price: Number(price.price),
+          url: price.providerUrl,
+        })),
     };
+
     props.onSubmit(assetData);
     setFormState(defaultFormState);
     setPricesLength(0);

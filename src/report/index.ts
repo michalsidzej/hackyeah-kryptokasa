@@ -1,7 +1,8 @@
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { CaseData } from "../pages/CaseDataPage";
-import { AssetData } from "src/components/CurrencyTable";
+import { AssetData } from "../components/CurrencyTable";
+import { NbpPrice } from "../peripherals/NbpClient";
 
 // Set the fonts to use
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -140,7 +141,7 @@ function createAssetExplenationTable(
 export const generatePDFReport = (
   caseInfo: CaseData,
   cryptoInfoList: AssetData[],
-  usdPrice: number
+  usdPrice: NbpPrice
 ) => {
   console.log(caseInfo, cryptoInfoList[0], usdPrice);
 
@@ -183,10 +184,10 @@ export const generatePDFReport = (
             {
               columns: [
                 {
-                  text: `Kurs NBP: `,
+                  text: `Kurs NBP z dnia ${usdPrice.date.toLocaleDateString()}: `,
                 },
                 {
-                  text: `${usdPrice} USD/PLN`,
+                  text: `${usdPrice.price} USD/PLN`,
                   bold: true,
                 },
               ],
@@ -211,7 +212,7 @@ export const generatePDFReport = (
         createAssetExplenationTable(
           `${info.name} (${info.symbol})`,
           info.prices,
-          usdPrice
+          usdPrice.price
         )
       ),
     ],
@@ -227,6 +228,8 @@ export const generatePDFReport = (
   };
 
   // Generate PDF
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
   pdfMake.createPdf(docDefinition).download("Cryptocurrency_Report.pdf");
 };
 

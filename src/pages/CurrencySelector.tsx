@@ -49,7 +49,8 @@ export function CurrencySelector() {
       <div className="px-8 flex flex-col">
         <div className="grow">
           <div className="text-end mb-1">
-            Kurs USD/PLN: <span className="font-bold">{usdPrice}</span>
+            Kurs USD/PLN z dnia {usdPrice?.date.toLocaleDateString()}:{" "}
+            <span className="font-bold">{usdPrice?.price}</span>
           </div>
           <AssetTable data={assetData ?? []} />
         </div>
