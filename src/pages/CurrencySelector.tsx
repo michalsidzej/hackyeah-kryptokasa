@@ -2,14 +2,24 @@ import { useContext, useEffect, useState } from "react";
 import { CurrencyForm, CurrencyRecord } from "../components/CurrencyForm";
 import { AssetTable } from "../components/CurrencyTable";
 import { Button } from "../components/Button";
-import { AssetDataContext } from "../App";
+import { AssetDataContext, UsdPriceContext } from "../App";
 import { getAssetData } from "../downloader/getAssetData";
+import { nbpClient } from "../peripherals/NbpClient";
 
 export function CurrencySelector() {
   const [selectedCurrency, setSelectedCurrency] =
     useState<CurrencyRecord>(null);
-
+  const { usdPrice, setUsdPrice } = useContext(UsdPriceContext);
   const { assetData, setAssetData } = useContext(AssetDataContext);
+
+  useEffect(() => {
+    async function fetchUSDPrice() {
+      const price = await nbpClient.getTodayPrice("USD");
+      setUsdPrice(price);
+    }
+
+    fetchUSDPrice();
+  }, []);
 
   useEffect(() => {
     async function fetchData(record: CurrencyRecord) {
@@ -32,6 +42,9 @@ export function CurrencySelector() {
       />
       <div className="px-8 flex flex-col">
         <div className="grow">
+          <div className="text-end mb-1">
+            Kurs USD/PLN: <span className="font-bold">{usdPrice}</span>
+          </div>
           <AssetTable data={assetData ?? []} />
         </div>
 
