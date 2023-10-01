@@ -80,9 +80,9 @@ function AutoAssetForm(props: AutoAssetFormProps) {
         name="amount"
         className="mb-3"
       />
-      <div className="flex gap-3">
-        <Button text="Wróć" onClick={() => navigate("/")} />
+      <div className="flex gap-3 flex-row-reverse	">
         <Button text="Dodaj" type="submit" blue />
+        <Button text="Wróć" onClick={() => navigate("/")} />
       </div>
     </form>
   );
@@ -234,9 +234,9 @@ function ManualAssetForm(props: ManualAssetFormProps) {
         className="mb-3"
         preventDefault
       />
-      <div className="flex gap-3">
-        <Button text="Wróć" onClick={() => navigate("/")} />
+      <div className="flex gap-3 flex-row-reverse	">
         <Button text="Dodaj" type="submit" blue />
+        <Button text="Wróć" onClick={() => navigate("/")} />
       </div>
     </form>
   );

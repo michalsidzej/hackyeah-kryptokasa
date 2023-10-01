@@ -10,11 +10,18 @@ class PriceDownloader {
     baseCurrency: string,
     quoteCurrency: string
   ): Promise<ValueRecord[]> {
-    return await Promise.all(
-      this.priceProviders.map((provider) =>
-        provider.getPrice(baseCurrency, quoteCurrency)
-      )
+    const prices = await Promise.all(
+      this.priceProviders.flatMap(async (provider) => {
+        try {
+          return await provider.getPrice(baseCurrency, quoteCurrency);
+        } catch (error) {
+          console.error(error);
+          return;
+        }
+      })
     );
+
+    return prices.filter((price) => price !== undefined) as ValueRecord[];
   }
 }
 
