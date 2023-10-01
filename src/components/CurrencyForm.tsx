@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Button } from "./Button";
-import { CurrencyAmountInput } from "./CurrencyAmountInput";
 import { CurrencySelect } from "./CurrencySelect";
 import { useNavigate } from "react-router-dom";
+import { Label } from "./Label";
+import { Input } from "./Input";
 
 export interface CurrencyRecord {
   currencySymbol: string;
@@ -14,21 +15,6 @@ interface CurrencyFormProps {
 }
 
 export function CurrencyForm(props: CurrencyFormProps) {
-  const navigate = useNavigate();
-  const [currency, setCurrency] = useState<string>();
-  const [amount, setAmount] = useState<number>();
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    console.log({
-      currency: currency,
-      amount: amount,
-    });
-    props.onSubmit({
-      currencySymbol: currency,
-      amount: amount,
-    });
-  }
   return (
     <section className="w-[500px]">
       <h2 className="mb-3 text-xxl">Wyszukaj kryptowalutę</h2>
@@ -36,18 +22,54 @@ export function CurrencyForm(props: CurrencyFormProps) {
         System automatycznie znajdzie dzisiejszą cenę aktywów. Możesz też
         wprowadzić dane manualnie.
       </p>
-      <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-        <CurrencySelect className="mb-2" onChange={setCurrency} />
-        <CurrencyAmountInput
-          className="mb-3"
-          onChange={setAmount}
-          value={amount}
-        />
-        <div className="flex gap-3">
-          <Button text="Wróć" onClick={() => navigate("/")} />
-          <Button text="Dodaj" type="submit" blue />
-        </div>
-      </form>
+      <AutoAssetForm onSubmit={props.onSubmit} />
     </section>
+  );
+}
+
+interface AutoAssetFormProps {
+  onSubmit: (currencyRecord: CurrencyRecord) => void;
+}
+
+function AutoAssetForm(props: AutoAssetFormProps) {
+  const navigate = useNavigate();
+  const [formState, setFormState] = useState<CurrencyRecord>({
+    amount: 0,
+    currencySymbol: "",
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    props.onSubmit(formState);
+  }
+  return (
+    <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+      <CurrencySelect
+        className="mb-2"
+        onChange={(value: string) =>
+          setFormState({ ...formState, currencySymbol: value })
+        }
+      />
+      <Label text="Ilość aktywu" />
+      <Input
+        type="number"
+        value={formState.amount}
+        onChange={handleInputChange}
+        name="amount"
+        className="mb-3"
+      />
+      <div className="flex gap-3">
+        <Button text="Wróć" onClick={() => navigate("/")} />
+        <Button text="Dodaj" type="submit" blue />
+      </div>
+    </form>
   );
 }
