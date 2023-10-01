@@ -74,6 +74,7 @@ export function CurrencySelector() {
                     amount: saved.amount,
                     prices: newPrices,
                     avgPrice: newAvgPrice,
+                    value: newAvgPrice * saved.amount,
                   } as AssetData;
                 }
                 return saved;
@@ -90,7 +91,7 @@ export function CurrencySelector() {
             Kurs USD/PLN z dnia {usdPrice?.date.toLocaleDateString()}:{" "}
             <span className="font-bold">{usdPrice?.price}</span>
           </div>
-          <AssetTable data={assetData ?? []} />
+          <AssetTable usdPrice={usdPrice?.price} data={assetData ?? []} />
         </div>
 
         <hr className="border-gray-100 mb-4" />

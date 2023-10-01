@@ -14,6 +14,7 @@ export interface AssetData {
 
 interface AssetTableProps {
   data: AssetData[];
+  usdPrice?: number;
 }
 
 export function AssetTable(props: AssetTableProps) {
@@ -35,6 +36,7 @@ export function AssetTable(props: AssetTableProps) {
         <TableRow
           key={i}
           data={currency}
+          usdPrice={props.usdPrice}
           isExpanded={isExpanded[i]}
           setIsExpanded={() =>
             setIsExpanded(isExpanded.map((x, j) => (j === i ? !x : x)))
@@ -47,29 +49,33 @@ export function AssetTable(props: AssetTableProps) {
 
 interface TableRowProps {
   data: AssetData;
+  usdPrice?: number;
   isExpanded: boolean;
   setIsExpanded: (isExpanded: boolean) => void;
 }
 
 export function TableRow(props: TableRowProps) {
   return (
-    <div className="relative col-span-12 grid grid-cols-12">
+    <div className="relative col-span-12 grid grid-cols-12 py-1">
       <DropdownArrowIcon
         className={cx(
-          "absolute -left-[24px] transition-all",
+          "absolute -left-[24px] transition-all top-4",
           props.isExpanded && "rotate-180"
         )}
         width={24}
         height={24}
         onClick={() => props.setIsExpanded(!props.isExpanded)}
       />
-      <span className="col-span-9 font-medium">
+      <div className="col-span-9 font-medium flex items-center">
         {props.data.name} ({props.data.symbol})
-      </span>
-      <span>{props.data.amount}</span>
-      <span className="font-medium col-span-2">
-        {props.data.value?.toFixed(2)}
-      </span>
+      </div>
+      <div className="flex items-center opacity-50">{props.data.amount}</div>
+      <div className="font-medium col-span-2 flex items-center">
+        <div>
+          <div>{props.data.value.toFixed(2)} USD</div>
+          <div>{(props.data.value * (props.usdPrice ?? 0)).toFixed(2)} PLN</div>
+        </div>
+      </div>
       {props.data.prices.map((price, i) => (
         <div
           className={cx(
