@@ -28,6 +28,7 @@ export class ZondaClient implements PriceProvider {
       price: avgPrice,
       name: "Zonda",
       url: "https://www.zonda.pl/",
+      date: new Date(),
     };
   }
 }

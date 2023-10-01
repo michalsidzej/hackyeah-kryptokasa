@@ -19,6 +19,7 @@ interface Price {
   name: string;
   url: string;
   price: number;
+  date: Date;
 }
 
 function createAssetExplenationTable(
@@ -34,6 +35,10 @@ function createAssetExplenationTable(
       },
       {
         text: "URL",
+        bold: true,
+      },
+      {
+        text: "Data pobrania ceny",
         bold: true,
       },
       {
@@ -56,6 +61,9 @@ function createAssetExplenationTable(
         text: price.url,
       },
       {
+        text: price.date.toLocaleString(),
+      },
+      {
         text: price.price.toFixed(2),
       },
       {
@@ -66,7 +74,7 @@ function createAssetExplenationTable(
 
   return [
     {
-      text: `Szczegółowe wyjaśnienie wartości ${assetName}`,
+      text: `Szczegółowe wyjaśnienie cen ${assetName}`,
       fontSize: 12,
       color: "black",
       margin: [0, 10, 0, 10],
@@ -74,7 +82,7 @@ function createAssetExplenationTable(
     {
       table: {
         body: assetExplenationTableBody,
-        widths: ["auto", "*", "auto", "auto"],
+        widths: ["auto", "*", "auto", "auto", "auto"],
       },
       layout: "lightHorizontalLines",
       fontSize: 10,
@@ -198,3 +206,46 @@ export const generatePDFReport = (
   // @ts-expect-error
   pdfMake.createPdf(docDefinition).download("Cryptocurrency_Report.pdf");
 };
+
+// // generate PDF report with dummy data
+// const dummyCaseInfo: CaseData = {
+//   organName: "Sąd Rejonowy w Gdańsku",
+//   owner: "Jan Kowalski",
+//   id: "123456789",
+//   caseId: "123/2021",
+// };
+
+// const dummyCryptoInfoList: AssetData[] = [
+//   {
+//     name: "Bitcoin",
+//     symbol: "BTC",
+//     amount: 0.1,
+//     avgPrice: 10000,
+//     value: 1000,
+//     prices: [
+//       {
+//         name: "Coinbase",
+//         url: "https://www.coinbase.com/",
+//         price: 10000,
+//         date: new Date(),
+//       },
+//       {
+//         name: "Kraken",
+//         url: "https://www.kraken.com/",
+//         price: 10000,
+//         date: new Date(),
+//       },
+//       {
+//         name: "Zonda",
+//         url: "https://www.zonda.com/",
+//         price: 10000,
+//         date: new Date(),
+//       },
+//     ],
+//   },
+// ];
+
+// generatePDFReport(dummyCaseInfo, dummyCryptoInfoList, {
+//   price: 3.8,
+//   date: new Date(),
+// });

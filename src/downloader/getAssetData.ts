@@ -22,6 +22,7 @@ export async function getAssetData(
       name: price.name,
       url: price.url,
       price: Number(price.price),
+      date: price.date,
     })),
   };
 }

@@ -2,6 +2,7 @@ export interface ValueRecord {
   name: string;
   url: string;
   price: number;
+  date: Date;
 }
 
 export interface PriceProvider {

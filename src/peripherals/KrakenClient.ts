@@ -37,6 +37,11 @@ export class KrakenClient implements PriceProvider {
     const result = Object.values(data.result)[0];
     const price = Number(result.a[0]);
 
-    return { price, name: "Kraken", url: "https://www.kraken.com/" };
+    return {
+      price,
+      name: "Kraken",
+      url: "https://www.kraken.com/",
+      date: new Date(),
+    };
   }
 }

@@ -18,6 +18,11 @@ export class CoinbaseClient implements PriceProvider {
     const data = CoinbaseApiSchema.parse(response);
     const price = Number(data.data.amount);
 
-    return { price, name: "Coinbase", url: "https://www.coinbase.com/" };
+    return {
+      price,
+      name: "Coinbase",
+      url: "https://www.coinbase.com/",
+      date: new Date(),
+    };
   }
 }

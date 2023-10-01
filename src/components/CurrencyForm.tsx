@@ -167,6 +167,7 @@ function ManualAssetForm(props: ManualAssetFormProps) {
           name: price.providerName,
           price: Number(price.price),
           url: price.providerUrl,
+          date: new Date(),
         })),
     };
 
