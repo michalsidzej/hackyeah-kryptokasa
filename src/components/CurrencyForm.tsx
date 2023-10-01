@@ -106,6 +106,12 @@ function ManualAssetForm(props: ManualAssetFormProps) {
   const navigate = useNavigate();
   const [pricesLength, setPricesLength] = useState<number>(0);
 
+  const defaultFormState: ManualAssetData = {
+    nameAndSymbol: "",
+    amount: 0,
+    prices: [],
+  };
+
   const [formState, setFormState] = useState<ManualAssetData>({
     nameAndSymbol: "",
     amount: 0,
@@ -133,8 +139,9 @@ function ManualAssetForm(props: ManualAssetFormProps) {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const name = /\(([^)]+)\)/.exec(formState.nameAndSymbol)?.[1];
-    const symbol = /^.*?\(/.exec(formState.nameAndSymbol)?.[1];
+    console.log();
+    const symbol = /\(([^)]+)\)/.exec(formState.nameAndSymbol)?.[1];
+    const name = /^(.*?)\s*(?=\()/.exec(formState.nameAndSymbol)?.[1];
 
     const avgPrice = formState.prices.reduce(
       (acc, curr) => acc + curr.price,
@@ -156,6 +163,8 @@ function ManualAssetForm(props: ManualAssetFormProps) {
       })),
     };
     props.onSubmit(assetData);
+    setFormState(defaultFormState);
+    setPricesLength(0);
   }
   return (
     <form className="flex flex-col gap-2 mt-3" onSubmit={handleSubmit}>
@@ -164,7 +173,7 @@ function ManualAssetForm(props: ManualAssetFormProps) {
         placeholder="np. Bitcoin (BTC)"
         value={formState.nameAndSymbol}
         onChange={handleInputChange}
-        name="name"
+        name="nameAndSymbol"
         className="mb-3"
       />
       <Label text="Ilość aktywu" />
@@ -176,28 +185,44 @@ function ManualAssetForm(props: ManualAssetFormProps) {
         className="mb-3"
       />
       {Array.from({ length: pricesLength }).map((_, i) => {
+        function handlePriceChange(e: React.ChangeEvent<HTMLInputElement>) {
+          const { name, value } = e.target;
+          setFormState({
+            ...formState,
+            prices: formState.prices.map((price, index) => {
+              if (index === i) {
+                return {
+                  ...price,
+                  [name]: value,
+                };
+              }
+              return price;
+            }),
+          });
+        }
+
         return (
           <React.Fragment key={i}>
             <Label text="Nazwa giełdy" />
             <Input
               value={formState.prices[i].providerName}
-              onChange={handleInputChange}
-              name={`providerName[${i}]`}
+              onChange={handlePriceChange}
+              name="providerName"
               className="mb-3"
             />
             <Label text="Adres giełdy" />
             <Input
               value={formState.prices[i].providerUrl}
-              onChange={handleInputChange}
-              name={`providerUrl[${i}]`}
+              onChange={handlePriceChange}
+              name="providerUrl"
               className="mb-3"
             />
             <Label text="Cena" />
             <Input
               type="number"
               value={formState.prices[i].price}
-              onChange={handleInputChange}
-              name={`price[${i}]`}
+              onChange={handlePriceChange}
+              name="price"
               className="mb-3"
             />
           </React.Fragment>
@@ -207,6 +232,7 @@ function ManualAssetForm(props: ManualAssetFormProps) {
         text="Dodaj kurs"
         onClick={() => setPricesLength(pricesLength + 1)}
         className="mb-3"
+        preventDefault
       />
       <div className="flex gap-3">
         <Button text="Wróć" onClick={() => navigate("/")} />

@@ -3,6 +3,7 @@ import cx from "classnames";
 interface ButtonProps {
   text: string;
   blue?: boolean;
+  preventDefault?: boolean;
   onClick?: () => void;
   type?: "submit";
   className?: string;
@@ -16,7 +17,12 @@ export function Button(props: ButtonProps) {
         props.blue ? "bg-blue text-white" : "bg-white text-black",
         props.className
       )}
-      onClick={props.onClick}
+      onClick={(e) => {
+        if (props.preventDefault) {
+          e.preventDefault();
+        }
+        props.onClick && props.onClick();
+      }}
       type={props.type}
     >
       {props.text}
