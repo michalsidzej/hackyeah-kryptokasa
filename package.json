@@ -1,8 +1,8 @@
 {
-  "name": "electron-ts",
-  "productName": "electron-ts",
+  "name": "Kryptoszacunek",
+  "productName": "Kryptoszacunek",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Fantastyczny program do szybkiego liczenia kryptoszacunku",
   "main": ".vite/build/main.js",
   "scripts": {
     "start": "electron-forge start",

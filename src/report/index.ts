@@ -2,6 +2,7 @@ import pdfMake from "pdfmake/build/pdfmake";
 import { CaseData } from "../pages/CaseDataPage";
 import { AssetData } from "../components/CurrencyTable";
 import { NbpPrice } from "../peripherals/NbpClient";
+import { generateReportID } from "./getRaportId";
 
 pdfMake.fonts = {
   Roboto: {
@@ -113,6 +114,8 @@ export const generatePDFReport = (
     }
   }
 
+  const reportId = generateReportID();
+
   // Create body for the table
   const avgPriceTableBody = [
     [
@@ -135,8 +138,9 @@ export const generatePDFReport = (
   const docDefinition = {
     content: [
       {
-        text: "Raport 30/09/23/1A",
+        text: "Raport " + reportId,
         style: "header",
+        margin: [0, 0, 0, 16],
       },
       {
         columns: [
@@ -201,10 +205,11 @@ export const generatePDFReport = (
     },
   };
 
-  // Generate PDF
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  pdfMake.createPdf(docDefinition).download("Cryptocurrency_Report.pdf");
+  pdfMake
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    .createPdf(docDefinition)
+    .download(`Raport_Kryptoszacunek_${reportId}.pdf`);
 };
 
 // // generate PDF report with dummy data
