@@ -1,3 +1,4 @@
+import { CoinbaseClient } from "../peripherals/CoinbaseClient";
 import { KrakenClient } from "../peripherals/KrakenClient";
 import { PriceProvider, ValueRecord } from "../peripherals/types";
 import { ZondaClient } from "../peripherals/ZondaClient";
@@ -20,4 +21,5 @@ class PriceDownloader {
 export const priceDownloader = new PriceDownloader([
   new ZondaClient("https://api.zonda.exchange"),
   new KrakenClient("https://api.kraken.com"),
+  new CoinbaseClient(),
 ]);

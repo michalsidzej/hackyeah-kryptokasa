@@ -26,7 +26,7 @@ export class ZondaClient implements PriceProvider {
       (Number(data.ticker.highestBid) + Number(data.ticker.lowestAsk)) / 2;
     return {
       price: avgPrice,
-      name: "zonda",
+      name: "Zonda",
       url: "https://www.zonda.pl/",
     };
   }

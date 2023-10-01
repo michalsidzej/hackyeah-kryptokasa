@@ -78,10 +78,10 @@ export function TableRow(props: TableRowProps) {
           )}
           key={i}
         >
-          <span className="col-span-9">
+          <span className="col-span-6">
             {capitalizeFirstLetter(price.name)}
           </span>
-          <span>{price.url}</span>
+          <span className="col-span-4">{price.url}</span>
           <span className="col-span-2">{price.price.toFixed(2)}</span>
         </div>
       ))}
