@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { CurrencyForm, CurrencyRecord } from "../components/CurrencyForm";
-import { AssetData, AssetTable } from "../components/CurrencyTable";
+import { AssetTable } from "../components/CurrencyTable";
 import { Button } from "../components/Button";
 import { AssetDataContext, CaseDataContext, UsdPriceContext } from "../App";
 import { getAssetData } from "../downloader/getAssetData";
@@ -12,10 +12,7 @@ export function CurrencySelector() {
   const [selectedCurrency, setSelectedCurrency] =
     useState<CurrencyRecord>(null);
   const { usdPrice, setUsdPrice } = useContext(UsdPriceContext);
-  const { assetData, setAssetData } = useContext<{
-    assetData: AssetData[];
-    setAssetData: any;
-  }>(AssetDataContext);
+  const { assetData, setAssetData } = useContext(AssetDataContext);
   const { caseData } = useContext<{ caseData: CaseData }>(CaseDataContext);
 
   useEffect(() => {
@@ -50,7 +47,7 @@ export function CurrencySelector() {
           setAssetData([...(assetData ?? []), newAsset])
         }
       />
-      <div className="px-8 flex flex-col">
+      <div className="pl-8 flex flex-col">
         <div className="grow">
           <div className="text-end mb-1">
             Kurs USD/PLN z dnia {usdPrice?.date.toLocaleDateString()}:{" "}
