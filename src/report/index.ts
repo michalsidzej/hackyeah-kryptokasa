@@ -1,5 +1,4 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import { CaseData } from "../pages/CaseDataPage";
 import { AssetData } from "../components/CurrencyTable";
 import { NbpPrice } from "../peripherals/NbpClient";

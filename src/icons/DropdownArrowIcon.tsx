@@ -1,5 +1,5 @@
 export function DropdownArrowIcon(
-  props: React.SVGProps<SVGSVGElement>,
+  props: React.SVGProps<SVGSVGElement>
 ): JSX.Element {
   return (
     <svg
@@ -15,5 +15,5 @@ export function DropdownArrowIcon(
         fill="black"
       />
     </svg>
-  )
+  );
 }

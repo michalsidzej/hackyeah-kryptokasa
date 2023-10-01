@@ -4,6 +4,7 @@ import { Input } from "../components/Input";
 import { Label } from "../components/Label";
 import { CaseDataContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import { LandingIcon } from "../icons/Landing";
 
 export interface CaseData {
   organName: string;
@@ -80,7 +81,7 @@ export function CaseDataPage() {
         </form>
       </section>
       <div className="max-w-[800px] pl-10">
-        <img src="assets/landing.svg" className="max-h-[600px]" />
+        <LandingIcon height={600} />
       </div>
     </div>
   );
