@@ -30,18 +30,19 @@ function createAssetExplenationTable(
     [
       {
         text: "Nazwa giełdy",
-        fontSize: 10,
-        color: "black",
+        bold: true,
+      },
+      {
+        text: "URL",
+        bold: true,
       },
       {
         text: "Cena USD",
-        fontSize: 10,
-        color: "black",
+        bold: true,
       },
       {
         text: "Cena PLN",
-        fontSize: 10,
-        color: "black",
+        bold: true,
       },
     ],
   ];
@@ -50,20 +51,15 @@ function createAssetExplenationTable(
     assetExplenationTableBody.push([
       {
         text: price.name,
-        fontSize: 10,
-        color: "black",
-        link: price.url,
-        underline: true,
+      },
+      {
+        text: price.url,
       },
       {
         text: price.price.toFixed(2),
-        fontSize: 10,
-        color: "black",
       },
       {
         text: (price.price * usdPrice).toFixed(2),
-        fontSize: 10,
-        color: "black",
       },
     ]);
   });
@@ -71,18 +67,19 @@ function createAssetExplenationTable(
   return [
     {
       text: `Szczegółowe wyjaśnienie wartości ${assetName}`,
-      fontSize: 10,
+      fontSize: 12,
       color: "black",
-      margin: [42, 5, 0, 0],
+      margin: [0, 10, 0, 10],
     },
     {
       table: {
         body: assetExplenationTableBody,
+        widths: ["auto", "*", "auto", "auto"],
       },
       layout: "lightHorizontalLines",
       fontSize: 10,
       color: "black",
-      margin: [42, 10, 0, 0],
+      margin: [0, 0, 0, 16],
     },
   ];
 }
@@ -121,7 +118,7 @@ export const generatePDFReport = (
   cryptoInfoList.forEach((info) => {
     avgPriceTableBody.push([
       { text: `${info.name} (${info.symbol})`, fontSize: 10, color: "black" },
-      { text: info.amount.toString(2), fontSize: 10, color: "black" },
+      { text: info.amount.toFixed(2), fontSize: 10, color: "black" },
       { text: info.avgPrice.toFixed(2), fontSize: 10, color: "black" },
       { text: info.value?.toFixed(2), fontSize: 10, color: "black" },
     ]);
@@ -146,30 +143,36 @@ export const generatePDFReport = (
             "\n",
             {
               columns: [
-                {
-                  text: `Kurs NBP z dnia ${usdPrice.date.toLocaleDateString()}: `,
-                },
-                {
-                  text: `${usdPrice.price} USD/PLN`,
-                  bold: true,
-                },
+                [`Kurs NBP:`, `z dnia:`],
+                [
+                  {
+                    text: `${usdPrice.price} USD/PLN`,
+                    bold: true,
+                  },
+                  {
+                    text: usdPrice.date.toLocaleDateString(),
+                    bold: true,
+                  },
+                ],
               ],
             },
           ],
         ],
       },
-
       {
-        table: {
-          body: avgPriceTableBody,
-        },
-        layout: "lightHorizontalLines",
+        text: "Szacowana wartość kryptoaktywów",
+        fontSize: 14,
+        bold: true,
+        margin: [0, 30, 0, 10],
       },
       {
         table: {
           body: avgPriceTableBody,
+          widths: ["*", "auto", "auto", "auto"],
         },
+        width: "100%",
         layout: "lightHorizontalLines",
+        margin: [0, 0, 0, 16],
       },
       ...cryptoInfoList.flatMap((info) =>
         createAssetExplenationTable(
@@ -195,6 +198,3 @@ export const generatePDFReport = (
   // @ts-expect-error
   pdfMake.createPdf(docDefinition).download("Cryptocurrency_Report.pdf");
 };
-
-// Generate the report
-// generatePDFReport(caseInfo, cryptoInfoList, 4.3244);
