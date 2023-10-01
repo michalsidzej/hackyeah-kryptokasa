@@ -9,8 +9,8 @@ import { LandingIcon } from "../icons/Landing";
 export interface CaseData {
   organName: string;
   caseId: string;
-  nameAndSurname: string;
-  pesel: string;
+  owner: string;
+  id: string;
 }
 
 export function CaseDataPage() {
@@ -20,8 +20,8 @@ export function CaseDataPage() {
     dataContext.caseData ?? {
       organName: "",
       caseId: "",
-      nameAndSurname: "",
-      pesel: "",
+      owner: "",
+      id: "",
     }
   );
 
@@ -62,18 +62,18 @@ export function CaseDataPage() {
             />
           </div>
           <div className="mb-4">
-            <Label text="Imię i nazwisko właściciela kryptoaktywa" />
+            <Label text="Posiadacz kryptoaktywa" />
             <Input
-              name="nameAndSurname"
-              value={formState.nameAndSurname}
+              name="owner"
+              value={formState.owner}
               onChange={handleInputChange}
             />
           </div>
           <div className="mb-4">
-            <Label text="PESEL właściciela kryptoaktywa" />
+            <Label text="ID posiadacza" />
             <Input
-              name="pesel"
-              value={formState.pesel}
+              name="id"
+              value={formState.id}
               onChange={handleInputChange}
             />
           </div>

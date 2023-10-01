@@ -10,18 +10,18 @@ export async function getAssetData(
 ): Promise<AssetData> {
   const prices = await priceDownloader.getPrices(currencySymbol, quoteCurrency);
   const avgPrice =
-    prices.reduce((acc, price) => acc + price.price, 0) / prices.length;
+    prices.reduce((acc, price) => acc + Number(price.price), 0) / prices.length;
 
   return {
     name: currencyName,
     symbol: currencySymbol,
-    amount,
+    amount: Number(amount),
     avgPrice,
     value: avgPrice * amount,
     prices: prices.map((price) => ({
       name: price.name,
       url: price.url,
-      price: price.price,
+      price: Number(price.price),
     })),
   };
 }

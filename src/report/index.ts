@@ -123,8 +123,8 @@ export const generatePDFReport = (
         columns: [
           [
             `Organ egzekucyjny: ${caseInfo.organName}`,
-            `Imię i nazwisko posiadacza: ${caseInfo.nameAndSurname}`,
-            `PESEL: ${caseInfo.pesel}`,
+            `Posiadacz kryptoaktywa: ${caseInfo.owner}`,
+            `ID posiadacza: ${caseInfo.id}`,
             `Data sporządzenia: ${new Date().toLocaleDateString()}`,
           ],
           [

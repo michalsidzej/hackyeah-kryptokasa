@@ -68,7 +68,7 @@ export function TableRow(props: TableRowProps) {
       </span>
       <span>{props.data.amount}</span>
       <span className="font-medium col-span-2">
-        {props.data.value.toFixed(2)}
+        {props.data.value?.toFixed(2)}
       </span>
       {props.data.prices.map((price, i) => (
         <div
@@ -82,13 +82,14 @@ export function TableRow(props: TableRowProps) {
             {capitalizeFirstLetter(price.name)}
           </span>
           <span className="col-span-4">{price.url}</span>
-          <span className="col-span-2">{price.price.toFixed(2)}</span>
+          <span className="col-span-2">{price.price?.toFixed(2)}</span>
         </div>
       ))}
     </div>
   );
 }
 
-function capitalizeFirstLetter(string: string) {
+function capitalizeFirstLetter(string?: string) {
+  if (!string) return "";
   return string.charAt(0).toUpperCase() + string.slice(1);
 }

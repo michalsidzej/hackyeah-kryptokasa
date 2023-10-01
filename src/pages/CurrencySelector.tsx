@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { CurrencyForm, CurrencyRecord } from "../components/CurrencyForm";
-import { AssetTable } from "../components/CurrencyTable";
+import { AssetData, AssetTable } from "../components/CurrencyTable";
 import { Button } from "../components/Button";
 import { AssetDataContext, CaseDataContext, UsdPriceContext } from "../App";
 import { getAssetData } from "../downloader/getAssetData";
@@ -43,9 +43,46 @@ export function CurrencySelector() {
     <div className="flex h-full">
       <CurrencyForm
         onSubmit={(currencyRecord) => setSelectedCurrency(currencyRecord)}
-        onManualSubmit={(newAsset) =>
-          setAssetData([...(assetData ?? []), newAsset])
-        }
+        onManualSubmit={(newAsset) => {
+          const relevantAssetData = assetData?.find(
+            (saved) =>
+              saved.symbol === newAsset.symbol &&
+              saved.name === newAsset.name &&
+              saved.amount === newAsset.amount
+          );
+          if (relevantAssetData) {
+            setAssetData(
+              assetData.map((saved) => {
+                console.log(saved, newAsset, saved === newAsset);
+                if (
+                  saved.symbol === newAsset.symbol &&
+                  saved.name === newAsset.name &&
+                  saved.amount === newAsset.amount
+                ) {
+                  const newPrices = saved.prices.concat(newAsset.prices);
+                  const newAvgPrice =
+                    newPrices.reduce(
+                      (prev, current) => prev + Number(current.price),
+                      0
+                    ) / newPrices.length;
+
+                  console.log(newPrices, newAvgPrice);
+
+                  return {
+                    symbol: saved.symbol,
+                    name: saved.name,
+                    amount: saved.amount,
+                    prices: newPrices,
+                    avgPrice: newAvgPrice,
+                  } as AssetData;
+                }
+                return saved;
+              })
+            );
+            return;
+          }
+          setAssetData([...(assetData ?? []), newAsset]);
+        }}
       />
       <div className="pl-8 flex flex-col">
         <div className="grow">
