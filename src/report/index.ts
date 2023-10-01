@@ -1,10 +1,9 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import { CaseData } from "../pages/CaseDataPage";
 import { AssetData } from "../components/CurrencyTable";
 import { NbpPrice } from "../peripherals/NbpClient";
 
-// Set the fonts to use
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const caseInfo: CaseInfo = {
@@ -216,13 +215,13 @@ export const generatePDFReport = (
         )
       ),
     ],
+    defaultStyle: {
+      fontSize: 10,
+    },
     styles: {
       header: {
         fontSize: 22,
         bold: true,
-      },
-      defaultStyle: {
-        fontSize: 10,
       },
     },
   };
