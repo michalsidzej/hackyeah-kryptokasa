@@ -4,66 +4,17 @@ import { CaseData } from "../pages/CaseDataPage";
 import { AssetData } from "../components/CurrencyTable";
 import { NbpPrice } from "../peripherals/NbpClient";
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
-const caseInfo: CaseInfo = {
-  caseNumber: "1601-RRT.8790.444.2023",
-  ownerName: "Jan Kowalski",
-  pesel: "91012298756",
-  date: new Date(),
+pdfMake.fonts = {
+  Roboto: {
+    normal:
+      "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Regular.ttf",
+    bold: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Medium.ttf",
+    italics:
+      "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Italic.ttf",
+    bolditalics:
+      "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-MediumItalic.ttf",
+  },
 };
-
-const cryptoInfoList = [
-  {
-    type: "Bitcoin",
-    amount: 1,
-    averagePrice: "$40,000",
-    prices: [
-      {
-        name: "Binance",
-        url: "https://www.binance.com/en/trade/BTC_USDT",
-        price: 43000,
-      },
-      {
-        name: "Coinbase",
-        url: "https://www.coinbase.com/price/bitcoin",
-        price: 44000,
-      },
-    ],
-  },
-  {
-    type: "Ethereum",
-    amount: 5,
-    averagePrice: "$2,000",
-    prices: [
-      {
-        name: "Binance",
-        url: "https://www.binance.com/en/trade/BTC_USDT",
-        price: 43000,
-      },
-      {
-        name: "Coinbase",
-        url: "https://www.coinbase.com/price/bitcoin",
-        price: 44000,
-      },
-    ],
-  },
-];
-
-interface CaseInfo {
-  date: Date;
-  caseNumber: string;
-  ownerName: string;
-  pesel: string;
-}
-
-interface CryptoInfo {
-  type: string;
-  amount: number;
-  averagePrice: string;
-  value: number;
-  prices: Price[];
-}
 
 interface Price {
   name: string;

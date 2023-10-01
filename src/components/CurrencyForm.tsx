@@ -9,6 +9,7 @@ import { AssetData } from "./CurrencyTable";
 
 export interface CurrencyRecord {
   currencySymbol: string;
+  currencyName: string;
   amount: number;
 }
 
@@ -50,6 +51,7 @@ function AutoAssetForm(props: AutoAssetFormProps) {
   const [formState, setFormState] = useState<CurrencyRecord>({
     amount: 0,
     currencySymbol: "",
+    currencyName: "",
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,9 +70,15 @@ function AutoAssetForm(props: AutoAssetFormProps) {
     <form className="flex flex-col gap-2 mt-3" onSubmit={handleSubmit}>
       <CurrencySelect
         className="mb-2"
-        onChange={(value: string) =>
-          setFormState({ ...formState, currencySymbol: value })
-        }
+        onChange={(value: string) => {
+          const symbol = /\(([^)]+)\)/.exec(value)?.[1];
+          const name = /^(.*?)\s*(?=\()/.exec(value)?.[1];
+          setFormState({
+            ...formState,
+            currencySymbol: symbol,
+            currencyName: name,
+          });
+        }}
       />
       <Label text="Ilość aktywu" />
       <Input

@@ -25,8 +25,7 @@ export function CurrencySelect(props: CurrencySelectProps) {
 
   function onChange(value: string) {
     setSelectedCurrency(value);
-    const symbol = /\(([^)]+)\)/.exec(value)?.[1];
-    props.onChange(symbol);
+    props.onChange(value);
   }
 
   return (
@@ -40,6 +39,9 @@ export function CurrencySelect(props: CurrencySelectProps) {
             className="px-3 py-2 border border-gray-100-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 w-full"
           />
           <Combobox.Options className="absolute bg-white w-full ">
+            {query.length > 0 && (
+              <Combobox.Option value={query}>{query}</Combobox.Option>
+            )}
             {filteredCurrencies.map((currency) => (
               <Combobox.Option
                 key={currency}

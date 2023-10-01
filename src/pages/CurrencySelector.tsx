@@ -29,7 +29,11 @@ export function CurrencySelector() {
 
   useEffect(() => {
     async function fetchData(record: CurrencyRecord) {
-      const data = await getAssetData(record.currencySymbol, record.amount);
+      const data = await getAssetData(
+        record.currencySymbol,
+        record.currencyName,
+        record.amount
+      );
       setAssetData([...(assetData ?? []), data]);
     }
 
