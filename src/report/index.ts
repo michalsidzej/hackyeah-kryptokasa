@@ -92,7 +92,21 @@ export const generatePDFReport = (
   cryptoInfoList: AssetData[],
   usdPrice: NbpPrice
 ) => {
-  console.log(caseInfo, cryptoInfoList[0], usdPrice);
+  for (const info of cryptoInfoList) {
+    if (info.prices.length < 3) {
+      alert(
+        "Brak wystarczających danych dla " +
+          info.name +
+          " (" +
+          info.symbol +
+          ")" +
+          " aby wygenerować raport." +
+          "\n" +
+          "Każde kryptoaktywo musi mieć przynajmniej 3 źródła cenowe."
+      );
+      return;
+    }
+  }
 
   // Create body for the table
   const avgPriceTableBody = [
